@@ -944,6 +944,20 @@ public class BasicArrayUtil {
         return countMap;
     }
 
+    public static <T> Map<T, Integer> getUniqueListWithCountList(List<T> data, Collection<T> candidateData) {
+        TreeMap<T, Integer> countMap = new TreeMap<>();
+        for (T candidateDatum : candidateData) {
+            countMap.put(candidateDatum, 0);
+        }
+        Integer tempCount;
+        for (T datum : data) {
+            tempCount = countMap.get(datum);
+            ++ tempCount;
+            countMap.put(datum, tempCount);
+        }
+        return countMap;
+    }
+
     public static <T> LinkedHashMap<T, Double> getUniqueListWithStatisticList(List<T> data) {
         LinkedHashMap<T, Integer> countMap = getUniqueListWithCountList(data);
         int size = data.size();
