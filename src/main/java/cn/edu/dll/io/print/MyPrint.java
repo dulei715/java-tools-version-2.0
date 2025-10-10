@@ -339,6 +339,23 @@ public class MyPrint {
     }
 
 
+
+
+    public static <S, T> void showMap(Map<S, T> resultMap, String splitStringA, Integer groupSize, String splitStringB) {
+        int size = resultMap.entrySet().size();
+        int k = 1;
+        for (Map.Entry<S, T> entry : resultMap.entrySet()) {
+            if (k < size && k % groupSize == 0) {
+                System.out.print(entry.getKey() + ": " + entry.getValue() + splitStringB);
+            } else if (k < size) {
+                System.out.print(entry.getKey() + ": " + entry.getValue() + splitStringA);
+            } else {
+                System.out.println(entry.getKey() + ": " + entry.getValue());
+            }
+            ++k;
+        }
+    }
+
     public static <S, T> void showMap(Map<S, T> resultMap, String splitString) {
         int size = resultMap.entrySet().size();
         int k = 1;
@@ -371,6 +388,8 @@ public class MyPrint {
             }
         }
     }
+
+
 
     public static void showCollection(Collection collection) {
         showCollection(collection, ConstantValues.LINE_SPLIT);

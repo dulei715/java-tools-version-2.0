@@ -1,4 +1,5 @@
 import cn.edu.dll.basic.BasicArrayUtil;
+import cn.edu.dll.differential_privacy.ldp.consistent.Normalization;
 import cn.edu.dll.io.print.MyPrint;
 import org.junit.Test;
 
@@ -27,5 +28,24 @@ public class BasicTest {
         List<Double> userEpsilonList = Arrays.asList(0.1, 0.4, 0.4, 0.1, 0.4, 0.4, 0.8, 0.8, 0.8, 0.4);
         LinkedHashMap<Double, Integer> resultMap = BasicArrayUtil.getUniqueListWithCountList(userEpsilonList);
         MyPrint.showMap(resultMap);
+    }
+
+    @Test
+    public void fun4() {
+        List<Double> data = Arrays.asList(-0.02, 0.35, 0.15, 0.05, -0.01);
+        List<Double> result = Normalization.normalizedByTruncation(data);
+        MyPrint.showList(result);
+    }
+
+    @Test
+    public void fun5() {
+        List<Double> estimate = Arrays.asList(-0.02, 0.35, 0.15, 0.05, -0.01);
+
+        System.out.println("原始估计: " + estimate);
+
+        List<Double> projected = Normalization.normalizedBySimplexProjection(estimate);
+
+        System.out.println("投影后: " + projected);
+        System.out.println("和: " + projected.stream().mapToDouble(Double::doubleValue).sum());
     }
 }
