@@ -772,18 +772,34 @@ public class BasicArrayUtil {
         return binaryDescendRangeSearchEqualLeftFindLeft(arrList, 0, arrList.size(), key);
     }
 
-    public static int getDoubleMaxValue(List<Double> list) {
-        int resultIndex = -1;
-        double resultValue = Double.MIN_VALUE;
+    public static Double getDoubleMaxValue(List<Double> list) {
+        if (list.isEmpty()) {
+            return null;
+        }
+        double resultValue = list.get(0);
         double temp;
-        for (int i = 0; i < list.size(); i++) {
+        for (int i = 1; i < list.size(); ++i) {
             temp = list.get(i);
             if (resultValue < temp) {
                 resultValue = temp;
-                resultIndex = i;
             }
         }
-        return resultIndex;
+        return resultValue;
+    }
+
+    public static Integer getIntegerMaxValue(List<Integer> list) {
+        if (list.isEmpty()) {
+            return null;
+        }
+        int resultValue = list.get(0);
+        int temp;
+        for (int i = 1; i < list.size(); ++i) {
+            temp = list.get(i);
+            if (resultValue < temp) {
+                resultValue = temp;
+            }
+        }
+        return resultValue;
     }
 
     public static int getDoubleArrayMaxValueByFirstValue(List<double[]> list) {
