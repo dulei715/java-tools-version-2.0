@@ -138,6 +138,16 @@ public class RandomUtil {
         }
         return resultList;
     }
+
+    public static List<Double> getRandomDoubleList(Double lowerBound, Double upperBound, int samplingSize, Random random) {
+        List<Double> resultList = new ArrayList<>(samplingSize);
+        Double tempDouble;
+        for (int i = 0; i < samplingSize; i++) {
+            tempDouble = getRandomDouble(lowerBound, upperBound, random);
+            resultList.add(tempDouble);
+        }
+        return resultList;
+    }
     public static int[] getRandomIntArrayWithoutRepeat(int lowerBound, int upperBound, int samplingSize, Random random) {
         int domainSize = upperBound - lowerBound + 1;
         if (samplingSize > domainSize) {
