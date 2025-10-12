@@ -3,10 +3,7 @@ package cn.edu.dll.basic;
 
 import cn.edu.dll.io.print.MyPrint;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 @SuppressWarnings("Duplicates")
 public class RandomUtil {
@@ -62,6 +59,17 @@ public class RandomUtil {
             sampleElementList.add(elementList.get(index));
         }
         return sampleElementList;
+    }
+
+    public static <T> Set<T> extractRandomElementWithoutRepeatFromSet(Set<T> elementSet, int sampleSize, Random random) {
+        int size = elementSet.size();
+        List<T> elementList = new ArrayList<>(size);
+        List<Integer> sampledIndexList = getRandomIntegerListWithoutRepeat(0, size - 1, sampleSize, random);
+        Set<T> result = new HashSet<>();
+        for (Integer index : sampledIndexList) {
+            result.add(elementList.get(index));
+        }
+        return result;
     }
 
     public static <T> T getRandomElement(List<T> elementList, Random random) {

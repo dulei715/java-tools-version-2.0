@@ -1,4 +1,4 @@
-package cn.edu.dll.struct;
+package cn.edu.dll.struct.pair;
 
 public class CombinePair <K, V> {
     protected K key;

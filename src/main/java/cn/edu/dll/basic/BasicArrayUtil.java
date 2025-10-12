@@ -1,8 +1,9 @@
 package cn.edu.dll.basic;
 
 
+import cn.edu.dll.io.print.MyPrint;
 import cn.edu.dll.round.DecimalTool;
-import cn.edu.dll.struct.BasicPair;
+import cn.edu.dll.struct.pair.BasicPair;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
@@ -435,6 +436,14 @@ public class BasicArrayUtil {
         return result;
     }
 
+    public static <T> List<T> extractSubListInGivenIndexCollection(List<T> data, Collection<Integer> indexCollection) {
+        List<T> result = new ArrayList<>();
+        for (Integer index : indexCollection) {
+            result.add(data.get(index));
+        }
+        return result;
+    }
+
     public static <T> int getFirstFindValueIndex(T[] data, T value) {
         for (int i = 0; i < data.length; i++) {
             if (data[i].equals(value)) {
@@ -499,6 +508,14 @@ public class BasicArrayUtil {
         Double sum = 0.0;
         for (int i = 0; i < nums.length; i++) {
             sum += nums[i];
+        }
+        return sum;
+    }
+
+    public static Double getDoubleSum(List<Double> nums) {
+        Double sum = 0.0;
+        for (int i = 0; i < nums.size(); i++) {
+            sum += nums.get(i);
         }
         return sum;
     }
@@ -932,6 +949,16 @@ public class BasicArrayUtil {
         return result;
     }
 
+    public static double getDoubleMinValue(List<Double> valueList) {
+        double result = Double.MAX_VALUE;
+        for (double value : valueList) {
+            if (value < result) {
+                result = value;
+            }
+        }
+        return result;
+    }
+
     public static boolean isAllNoMoreThanZero(double[] data) {
         for (double datum : data) {
             if (datum > 0) {
@@ -947,6 +974,21 @@ public class BasicArrayUtil {
         List<T> result = new ArrayList<>();
         result.addAll(uniqueDataSet);
         return result;
+    }
+
+    public static <T> LinkedHashMap<T, Integer> getUniqueListWithFirstAppearanceIndex(List<T> data) {
+        LinkedHashMap<T, Integer> indexMap = new LinkedHashMap<>();
+        int size = data.size();
+        T datum;
+        Set<T> containingSet = new HashSet<>();
+        for (int i = 0; i < size; i++) {
+            datum = data.get(i);
+            if (!containingSet.contains(datum)) {
+                indexMap.put(datum, i);
+                containingSet.add(datum);
+            }
+        }
+        return indexMap;
     }
 
     public static <T> LinkedHashMap<T, Integer> getUniqueListWithCountList(List<T> data) {
@@ -985,6 +1027,8 @@ public class BasicArrayUtil {
     }
 
 
+
+
     public static <T> List<T> toList(Collection<T> data) {
         List<T> result = new ArrayList<>();
         for (T datum : data) {
@@ -995,14 +1039,15 @@ public class BasicArrayUtil {
 
 
     public static void main(String[] args) {
-        double[] arr = new double[]{
-                9.0, 7.0, 6.0, 3.0, 1.0
-        };
-
-        double compDouble = 6.0;
-        int result = binaryDescendRangeSearchEqualRightFindLeft(arr, compDouble);
-        System.out.println(result);
-
+        List<Double> data = new ArrayList<>();
+        data.add(5.9);
+        data.add(5.9);
+        data.add(3.4);
+        data.add(3.4);
+        data.add(7.6);
+        data.add(7.6);
+        Map<Double, Integer> result = new TreeMap<>(getUniqueListWithFirstAppearanceIndex(data));
+        MyPrint.showMap(result);
     }
 
 }

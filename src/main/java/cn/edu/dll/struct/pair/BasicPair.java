@@ -1,4 +1,4 @@
-package cn.edu.dll.struct;
+package cn.edu.dll.struct.pair;
 
 
 import java.util.Objects;

@@ -1,7 +1,7 @@
 package cn.edu.dll.configure;
 
-import cn.edu.dll.struct.CombinePair;
-import cn.edu.dll.struct.CombineTriple;
+import cn.edu.dll.struct.pair.CombinePair;
+import cn.edu.dll.struct.pair.CombineTriple;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
