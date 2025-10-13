@@ -2,13 +2,10 @@ package cn.edu.dll.statistic;
 
 
 import cn.edu.dll.basic.BasicArrayUtil;
-import cn.edu.dll.basic.BasicCalculation;
+import cn.edu.dll.constant_values.ConstantValues;
 import cn.edu.dll.io.print.MyPrint;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 @SuppressWarnings("ALL")
 public class StatisticTool {
@@ -48,7 +45,7 @@ public class StatisticTool {
 
 
     public static Double getKLDivergenceValue(Double valueA, Double valueB) {
-        if (valueA <= 0.0) {
+        if (valueA < 0.0) {
             return 0.0;
         }
 //        if (valueB.equals(0)) {
@@ -61,7 +58,7 @@ public class StatisticTool {
         return result;
     }
     public static Double getKLDivergenceValue(Integer valueA, Double valueB) {
-        if (valueA <= 0) {
+        if (valueA < 0) {
             return 0.0;
         }
 
@@ -76,29 +73,83 @@ public class StatisticTool {
      * @param estimationData
      * @return
      */
-    public static Double getJSDivergence(final Map<String, Integer> rawData, final Map<String, Double> estimationData) {
+    public static <T> Double getJSCountDivergence(final Map<T, Integer> rawData, final Map<T, Double> estimationData) {
         /*
             计算estimationData相对于rawData的JS散度
             JSD(P||Q) = 0.5×D_{KL}(P||M) + 0.5×D_{KL}(Q||M)
             其中 M = 0.5×(P+Q)
          */
+        Set<T> keySet = new HashSet<>(rawData.keySet());
+        keySet.addAll(estimationData.keySet());
         Double result = 0D;
-        String name;
         Integer rawCount;
         Double estimationCount;
-        for (Map.Entry<String, Integer> rawEntry : rawData.entrySet()) {
-            name = rawEntry.getKey();
-            rawCount = rawEntry.getValue();
-            estimationCount = estimationData.get(name);
-            if (estimationCount <= 0) {
+        for (T name : keySet) {
+            rawCount = rawData.getOrDefault(name, 0);
+            estimationCount = estimationData.getOrDefault(name, 0D);
+            if (estimationCount < 0) {
                 estimationCount = 0.0;
             }
             Double m = (rawCount + estimationCount) / 2;
-            if(m == 0.0) {
+            if(Math.abs(m) < ConstantValues.DOUBLE_PRECISION) {
                 // JS散度贡献为0
                 continue;
             }
             result += 0.5 * (getKLDivergenceValue(rawCount, m) + getKLDivergenceValue(estimationCount, m));
+        }
+        return result;
+    }
+    public static <T> Double getJSStatisticDivergence(final Map<T, Double> rawData, final Map<T, Double> estimationData) {
+        /*
+            计算estimationData相对于rawData的JS散度
+            JSD(P||Q) = 0.5×D_{KL}(P||M) + 0.5×D_{KL}(Q||M)
+            其中 M = 0.5×(P+Q)
+         */
+        Set<T> keySet = new HashSet<>(rawData.keySet());
+        keySet.addAll(estimationData.keySet());
+        Double result = 0D;
+        Double rawStatistic;
+        Double estimationStatistic;
+        for (T name : keySet) {
+            rawStatistic = rawData.getOrDefault(name, 0D);
+            estimationStatistic = estimationData.getOrDefault(name, 0D);
+            if (estimationStatistic <= 0) {
+                estimationStatistic = 0.0;
+            }
+            Double m = (rawStatistic + estimationStatistic) / 2;
+            if(Math.abs(m) < ConstantValues.DOUBLE_PRECISION) {
+                // JS散度贡献为0
+                continue;
+            }
+            result += 0.5 * (getKLDivergenceValue(rawStatistic, m) + getKLDivergenceValue(estimationStatistic, m));
+        }
+        return result;
+    }
+    public static <T> Double getJSStatisticDivergence(final List<Double> rawData, final List<Double> estimationData) {
+        /*
+            计算estimationData相对于rawData的JS散度
+            JSD(P||Q) = 0.5×D_{KL}(P||M) + 0.5×D_{KL}(Q||M)
+            其中 M = 0.5×(P+Q)
+         */
+        int size = rawData.size();
+        if (estimationData.size() != rawData.size()) {
+            throw new RuntimeException("The rawData and estimation Data sizes are not equal!");
+        }
+        Double result = 0D;
+        Double rawStatistic;
+        Double estimationStatistic;
+        for (int i = 0; i < size; i++) {
+            rawStatistic = rawData.get(i);
+            estimationStatistic = estimationData.get(i);
+            Double m = (rawStatistic + estimationStatistic) / 2;
+            if (estimationStatistic < 0) {
+                estimationStatistic = 0.0;
+            }
+            if(Math.abs(m) < ConstantValues.DOUBLE_PRECISION) {
+                // JS散度贡献为0
+                continue;
+            }
+            result += 0.5 * (getKLDivergenceValue(rawStatistic, m) + getKLDivergenceValue(estimationStatistic, m));
         }
         return result;
     }

@@ -1,7 +1,7 @@
 package cn.edu.dll.basic;
 
 
-import cn.edu.dll.io.print.MyPrint;
+import cn.edu.dll.basic.cumulate.CumulativeFunction;
 
 import java.util.*;
 
@@ -63,7 +63,7 @@ public class RandomUtil {
 
     public static <T> Set<T> extractRandomElementWithoutRepeatFromSet(Set<T> elementSet, int sampleSize, Random random) {
         int size = elementSet.size();
-        List<T> elementList = new ArrayList<>(size);
+        List<T> elementList = new ArrayList<>(elementSet);
         List<Integer> sampledIndexList = getRandomIntegerListWithoutRepeat(0, size - 1, sampleSize, random);
         Set<T> result = new HashSet<>();
         for (Integer index : sampledIndexList) {
@@ -169,6 +169,7 @@ public class RandomUtil {
         return result;
     }
 
+
     /**
      * 获取给定0到upperBoundValue之间的arraySize个随机数
      * @param arraySize
@@ -188,6 +189,23 @@ public class RandomUtil {
         }
         result[i] = upperBoundValue - beforeValue;
         return result;
+    }
+
+    /**
+     *
+     * @param statisticValues 是一系列和为1的正小数
+     * @return
+     */
+    public static Integer getRandomIndexGivenStatisticPoint(Double[] statisticValues) {
+//        double sum = BasicCalculation.getSum(statisticValues);
+//        if (sum != 1.0) {
+//            throw new RuntimeException("The sum of statistic values is not equal to 1!");
+//        }
+        int len = statisticValues.length;
+        Double[] cumulatedValues = CumulativeFunction.getCumulativeDistribution(statisticValues);
+        double randomValue = Math.random();
+//        return BasicSearch.binarySearch(cumulatedValues, randomValue, BasicSearch.LATTER);
+        return BasicSearch.binaryLatterSearchWithMinimalIndex(cumulatedValues, randomValue);
     }
 
 

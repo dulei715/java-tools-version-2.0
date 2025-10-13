@@ -1,5 +1,7 @@
 package cn.edu.dll.basic;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class BasicCalculation {
@@ -18,5 +20,20 @@ public class BasicCalculation {
             result += Math.pow(pointA.get(i)-pointB.get(i), 2);
         }
         return Math.sqrt(result);
+    }
+
+    public static  <T> List<List<T>> getTransposition(List<List<T>> data) {
+        int rowSize = data.size(), colSize = data.get(0).size();
+        List<T> tempList;
+        List[] listArray = new List[colSize];
+        for (int i = 0; i < listArray.length; i++) {
+            listArray[i] = new ArrayList();
+        }
+        for (List<T> dataList : data) {
+            for (int i = 0; i < dataList.size(); i++) {
+                listArray[i].add(dataList.get(i));
+            }
+        }
+        return Arrays.asList(listArray);
     }
 }

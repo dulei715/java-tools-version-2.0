@@ -417,6 +417,13 @@ public class BasicArrayUtil {
         }
         return result;
     }
+    public static <T> List<T> getElementListInGivenIndexes(T[] elementArray, List<Integer> indexList) {
+        List<T> result = new ArrayList<>(indexList.size());
+        for (Integer index : indexList) {
+            result.add(elementArray[index]);
+        }
+        return result;
+    }
 
     public static Double[] extractSubArrayInGivenIndexList(Double[] data, List<Integer> indexList) {
         Double[] result = new Double[indexList.size()];
@@ -957,6 +964,31 @@ public class BasicArrayUtil {
             }
         }
         return result;
+    }
+
+    public static Integer getDoubleMinValueIndex(List<Double> valueList) {
+        double result = Double.MAX_VALUE, tempValue;
+        Integer index = -1, size = valueList.size();
+        for (int i = 0; i < size; i++) {
+            tempValue = valueList.get(i);
+            if (tempValue < result) {
+                result = tempValue;
+                index = i;
+            }
+        }
+        return index;
+    }
+    public static Integer getIntegerMinValueIndex(List<Integer> valueList) {
+        Integer result = Integer.MAX_VALUE, tempValue;
+        Integer index = -1, size = valueList.size();
+        for (int i = 0; i < size; i++) {
+            tempValue = valueList.get(i);
+            if (tempValue < result) {
+                result = tempValue;
+                index = i;
+            }
+        }
+        return index;
     }
 
     public static boolean isAllNoMoreThanZero(double[] data) {
