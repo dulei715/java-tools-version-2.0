@@ -1,6 +1,8 @@
 package cn.edu.dll.io.write;
 
 
+import cn.edu.dll.struct.bean_structs.BeanInterface;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -69,6 +71,16 @@ public class CSVWrite extends BasicWrite{
             }
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+    public <T extends BeanInterface<T>> void writeBeanList(List<T> beanList) {
+        try {
+            for (BeanInterface<T> bean : beanList) {
+                this.bufferedWriter.write(bean.toFormatString());
+                this.bufferedWriter.newLine();
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 }

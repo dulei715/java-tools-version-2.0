@@ -208,6 +208,14 @@ public class RandomUtil {
         return BasicSearch.binaryLatterSearchWithMinimalIndex(cumulatedValues, randomValue);
     }
 
+    public static Integer getRandomIndexGivenCumulativeCountPoint(final Double[] cumulativeCountValues) {
+        int len = cumulativeCountValues.length;
+        Double[] cumulativeValues = BasicArrayUtil.getLinearTransform(cumulativeCountValues, 1.0 / cumulativeCountValues[len - 1], 0.0);
+        double randomValue = Math.random();
+//        return BasicSearch.binarySearch(cumulativeValues, randomValue, BasicSearch.LATTER);
+        return BasicSearch.binaryLatterSearchWithMinimalIndex(cumulativeValues, randomValue);
+    }
+
 
 
 
