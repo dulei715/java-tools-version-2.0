@@ -45,7 +45,7 @@ public class CombineTriple<K, V, T> {
 
     @Override
     public String toString() {
-        return "PureTriple{" +
+        return "CombineTriple{" +
                 "key=" + key +
                 ", value=" + value +
                 ", tag=" + tag +
