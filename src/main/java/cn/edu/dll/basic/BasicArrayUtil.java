@@ -1042,6 +1042,11 @@ public class BasicArrayUtil {
         Integer tempCount;
         for (T datum : data) {
             tempCount = countMap.get(datum);
+            if (tempCount == null) {
+                System.out.println("candidateData 不包含 datum=" + datum);
+                System.out.println("split");
+                MyPrint.showCollection(candidateData, "; ");
+            }
             ++ tempCount;
             countMap.put(datum, tempCount);
         }

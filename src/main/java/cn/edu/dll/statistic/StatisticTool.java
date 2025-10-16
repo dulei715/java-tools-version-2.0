@@ -45,7 +45,7 @@ public class StatisticTool {
 
 
     public static Double getKLDivergenceValue(Double valueA, Double valueB) {
-        if (valueA < 0.0) {
+        if (valueA <= 0.0) {
             return 0.0;
         }
 //        if (valueB.equals(0)) {
@@ -141,10 +141,10 @@ public class StatisticTool {
         for (int i = 0; i < size; i++) {
             rawStatistic = rawData.get(i);
             estimationStatistic = estimationData.get(i);
-            Double m = (rawStatistic + estimationStatistic) / 2;
             if (estimationStatistic < 0) {
                 estimationStatistic = 0.0;
             }
+            Double m = (rawStatistic + estimationStatistic) / 2;
             if(Math.abs(m) < ConstantValues.DOUBLE_PRECISION) {
                 // JS散度贡献为0
                 continue;
