@@ -22,6 +22,10 @@ public class MapUtils {
         valueSet.add(value);
     }
 
+    public static <K, P, V> void addTwoIndexValue(Map<K, Map<P, V>> rawMap, K rawKey, P innerKey, V value) {
+        rawMap.computeIfAbsent(rawKey, k -> new HashMap<>()).put(innerKey, value);
+    }
+
     public static <K, P, V> void addMapAsValue(Map<K, Map<P, Set<V>>> rawMap, K rawKey, P innerKey, V value) {
         Map<P, Set<V>> innerMap = rawMap.get(rawKey);
         if (innerMap == null) {
