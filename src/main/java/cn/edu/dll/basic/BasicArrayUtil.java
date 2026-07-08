@@ -179,6 +179,23 @@ public class BasicArrayUtil {
         return result;
     }
 
+    public staticg Double getLinearCombination(List<Double> dataList, List<Double> weightList) {
+        double result = 0D;
+        int size = dataList.size();
+        for (int i = 0; i < size; i++) {
+            result += dataList.get(i) * weightList.get(i);
+        }
+        return result;
+    }
+
+    public static List<Double> toPowerValue(final List<Double> dataList, double powerIndexValue) {
+        List<Double> result = new ArrayList<>(dataList.size());
+        for (Double rawValue : dataList) {
+            result.add(Math.pow(rawValue, powerIndexValue));
+        }
+        return result;
+    }
+
 
     /**
      * 初始化数组每个值为一个集合。该集合不能是抽象类或接口
