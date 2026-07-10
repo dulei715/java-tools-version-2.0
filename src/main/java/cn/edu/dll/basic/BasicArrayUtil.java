@@ -179,7 +179,7 @@ public class BasicArrayUtil {
         return result;
     }
 
-    public staticg Double getLinearCombination(List<Double> dataList, List<Double> weightList) {
+    public static Double getLinearCombination(List<Double> dataList, List<Double> weightList) {
         double result = 0D;
         int size = dataList.size();
         for (int i = 0; i < size; i++) {
