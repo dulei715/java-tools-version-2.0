@@ -6,7 +6,7 @@ import org.ejml.simple.SimpleMatrix;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MatrixUtil {
+public class SimpleMatrixUtil {
 
     public static double[][] toBasicDoubleArray(List<List<Double>> matrix) {
         double[][] doubleArray = new double[matrix.size()][matrix.get(0).size()];

@@ -2,7 +2,7 @@ package cn.edu.dll.matrix;
 
 import java.util.List;
 
-public class VectorUtil {
+public class SimpleVectorUtil {
     public static Double getInnerProduct(List<Double> vectorA, List<Double> vectorB) {
         if (vectorA.size() != vectorB.size()) {
             throw new IllegalArgumentException("vectorA and vectorB must have the same size");
